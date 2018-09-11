@@ -1,3 +1,7 @@
+#root{
+    list-style-image: url("/img/icons/folders.png");
+}
+
 li{
-    background-color: LightGreen;
+    font-size:24px;
 }
