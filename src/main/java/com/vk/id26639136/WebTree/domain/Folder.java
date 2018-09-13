@@ -1,9 +1,6 @@
 package com.vk.id26639136.WebTree.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table
@@ -12,5 +9,41 @@ public class Folder {
     @GeneratedValue
     private Integer id;
     private String folderName;
-    private Integer parentId;
+    @ManyToOne
+    @JoinColumn(name = "parentId")
+    private Folder parent;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getFolderName() {
+        return folderName;
+    }
+
+    public void setFolderName(String folderName) {
+        this.folderName = folderName;
+    }
+
+    public Folder getParent() {
+        return parent;
+    }
+
+    public void setParent(Folder parent) {
+        this.parent = parent;
+    }
+
+    @Override
+    public String toString() {
+        String str = "Folder{" +
+                "id=" + id +
+                ", folderName='" + folderName + "'";
+        if (parent != null) str += ", parentId='" + parent.getId() + "'";
+        str += "}";
+        return str;
+    }
 }
