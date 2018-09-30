@@ -1,7 +1,17 @@
-#root{
+#null{
     list-style-image: url("/img/icons/folders.png");
 }
 
 li{
-    font-size:24px;
+    list-style-image: url("/img/icons/folder.png");
 }
+div {
+    position: relative;
+    bottom: 5px;
+}
+.download{
+    list-style-image: url("/img/icons/download.png");
+}
+
+
+

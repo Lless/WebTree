@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface FolderRepo extends JpaRepository<Folder, Integer> {
-    @Query(value = "FROM Folder where parent=?1")
-    List<Folder> findChildren(Folder parent);
-    @Query("FROM Folder where parent=null")
+    @Query("FROM Folder where parentId=?1")
+    List<Folder> findChildren(Integer parentId);
+    @Query("FROM Folder where parentId=null")
     List<Folder> findRootChildren();
 }
