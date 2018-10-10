@@ -55,6 +55,7 @@ function deleteNode() {
 
 function addNode(parent) {
     var parent = this.parentNode;
+    downloadFolderChildren(parent);
     var node = showFolder({parentId:parent.id, folderName:"new Folder"});
     node.firstChild.focus();
 }

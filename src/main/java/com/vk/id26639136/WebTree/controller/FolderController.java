@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
-import java.util.Stack;
 
 @RestController
 @RequestMapping("/folders")
