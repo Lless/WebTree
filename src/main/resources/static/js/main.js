@@ -1,5 +1,5 @@
 function load() {
-    var children = getRootChildren();
+    var children = XhrGetNull();
     children.forEach(showFolder);
 }
 
@@ -11,12 +11,12 @@ function getJson(node) {
     return JSON.stringify(info);
 }
 
-function dblClick(ev) {
-   var targetClasses = ev.target.classList;
-   targetClasses.add("download");
-   getChildren(ev.target.id).forEach(showFolder);
-   setTimeout(()=>{targetClasses.remove("download");}, 2000);
-   ev.stopPropagation();
+function downloadFolderChildren(folder) {
+    folder.classList.add("download");
+    XhrGet(folder.id, function(result) {
+        result.forEach(showFolder);
+        folder.classList.remove("download");
+    });
 }
 
 function newTextNode(text) {
@@ -26,20 +26,6 @@ function newTextNode(text) {
     textNode.addEventListener("keypress", leaveIfEnter);
     textNode.addEventListener("blur", saveChanges)
     return textNode;
-}
-
-function leaveIfEnter(ev) {
-    if (ev.key=="Enter") {
-        ev.target.blur();
-        ev.preventDefault();
-    }
-}
-
-function saveChanges(ev) {
-    node = ev.target.parentNode;
-    if (node.id) {
-        saveFolder(getJson(node));
-    }
 }
 
 function showFolder(folder) {
@@ -53,6 +39,12 @@ function showFolder(folder) {
     var parentNode = document.getElementById(folder.parentId);
     bindNode(node, parentNode);
     return node;
+}
+
+function updateFolder(node){
+    if (node.id) {
+        XhrPut(getJson(node));
+    };
 }
 
 function bindNode(node, to) {

@@ -16,8 +16,10 @@ public class FolderController {
     private FolderRepo repo;
 
     @GetMapping()
-    public List<Folder> getFolders(@RequestParam(required = false) Integer parentId) {
-        return parentId == null ? repo.findRootChildren() : repo.findChildren(parentId);
+    public List<Folder> getFolders(@RequestParam(required = false) Integer parentId) throws InterruptedException {
+        if (parentId == null) return repo.findRootChildren();
+        Thread.sleep(2000);
+        return repo.findChildren(parentId);
     }
 
     @PostMapping()
