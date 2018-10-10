@@ -39,5 +39,12 @@ div:focus {
     list-style-image: url("/img/icons/download.png");
 }
 
+.highlighted {
+    list-style-image: url("/img/icons/highlighted.png");
+}
+
+.download.highlighted {
+    list-style-image: url("/img/icons/highlighted_download.png");
+}
 
 

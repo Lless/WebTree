@@ -36,3 +36,11 @@ function leaveIfEnter(ev) {
 function saveChanges(ev) {
     updateFolder(ev.target.parentNode);
 }
+
+function focus(ev) {
+    var prev = (document.getElementsByClassName("highlighted"))[0];
+    if (prev) prev.classList.remove("highlighted");
+    var li = ev.target;
+    if (li.nodeName != "LI") li = li.parentNode;
+    if (li.nodeName == "LI") li.classList.add("highlighted");
+}

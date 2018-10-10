@@ -2,7 +2,8 @@ function load() {
     var children = XhrGetNull();
     children.forEach(showFolder);
     var root = document.getElementById(null);
-    root.insertBefore(newBtn("add",addNode), root.firstChild);
+    root.insertBefore(newBtn("add", addNode), root.firstChild);
+    root.addEventListener("focus", focus, true)
 }
 
 function getJson(node) {
@@ -35,6 +36,7 @@ function showFolder(folder) {
 
     var node = document.createElement("li");
     node.draggable = true;
+    node.tabIndex = -1;
     if (folder.id) node.id = folder.id;
     node.appendChild(newTextNode(folder.folderName));
     node.appendChild(newBtn("add",addNode));
