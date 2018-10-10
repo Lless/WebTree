@@ -9,6 +9,16 @@ ul {
     margin: 0px;
 }
 
+input {
+    padding: 0px;
+    margin-right: 1px;
+    position: relative;
+    bottom: 11px;
+    left: 2px;
+    cursor: pointer;
+    width: 8px;
+}
+
 li{
     list-style-position: outside;
     list-style-image: url("/img/icons/folder.png");

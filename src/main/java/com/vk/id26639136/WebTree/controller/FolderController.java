@@ -24,7 +24,6 @@ public class FolderController {
 
     @PostMapping()
     public void addFolder(@RequestBody Folder folder){
-
     }
 
     @PutMapping()
@@ -36,6 +35,6 @@ public class FolderController {
 
     @DeleteMapping()
     public void deleteFolder(@RequestParam Folder folder) {
-
+        repo.delete(folder);
     }
 }

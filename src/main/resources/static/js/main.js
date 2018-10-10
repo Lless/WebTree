@@ -35,10 +35,17 @@ function showFolder(folder) {
     node.draggable = true;
     if (folder.id) node.id = folder.id;
     node.appendChild(newTextNode(folder.folderName));
+    node.appendChild(newBtn("delete",deleteNode));
 
     var parentNode = document.getElementById(folder.parentId);
     bindNode(node, parentNode);
     return node;
+}
+
+function deleteNode() {
+    var node = this.parentNode;
+    XhrDelete(node.id);
+    node.parentNode.removeChild(node);
 }
 
 function updateFolder(node){
@@ -53,4 +60,12 @@ function bindNode(node, to) {
         to.appendChild(list);
     };
     to.getElementsByTagName("ul")[0].appendChild(node);
+}
+
+function newBtn(imgName, onclick) {
+    var btn = document.createElement("input");
+    btn.type = "image";
+    btn.onclick = onclick;
+    btn.src = "/img/icons/"+imgName+".png";
+    return btn;
 }

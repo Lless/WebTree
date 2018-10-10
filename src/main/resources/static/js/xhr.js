@@ -22,3 +22,10 @@ function XhrPut(json) {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(json);
 }
+
+function XhrDelete(id) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('DELETE', '/folders?folder='+id, false);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send();
+}
