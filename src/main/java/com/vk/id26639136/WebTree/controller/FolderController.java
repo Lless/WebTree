@@ -26,8 +26,10 @@ public class FolderController {
     }
 
     @PutMapping()
-    public void updateFolder(@RequestParam Folder folder) {
-
+    public void updateFolder(@RequestBody Folder folder) throws Exception{
+        if ( !repo.existsById(folder.getId()) )
+            throw new Exception("Folder does not exists");
+        repo.save(folder);
     }
 
     @DeleteMapping()

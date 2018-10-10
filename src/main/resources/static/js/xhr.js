@@ -11,3 +11,10 @@ function getChildren(parentId) {
     xhr.send();
     return JSON.parse(xhr.responseText);
 }
+
+function saveFolder(json) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('PUT', '/folders', false);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send([json]);
+}

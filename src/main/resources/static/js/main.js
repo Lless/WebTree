@@ -3,6 +3,14 @@ function load() {
     children.forEach(showFolder);
 }
 
+function getJson(node) {
+    var info = {};
+    if (node.id) info.id = node.id;
+    info.folderName = node.firstChild.innerHTML;
+    info.parentId = node.parentNode.parentNode.id;
+    return JSON.stringify(info);
+}
+
 function dblClick(ev) {
    var targetClasses = ev.target.classList;
    targetClasses.add("download");
@@ -15,8 +23,25 @@ function newTextNode(text) {
     var textNode = document.createElement("div");
     textNode.innerHTML = text;
     textNode.contentEditable = true;
+    textNode.addEventListener("keypress", leaveIfEnter);
+    textNode.addEventListener("blur", saveChanges)
     return textNode;
 }
+function leaveIfEnter(ev) {
+    if (ev.key=="Enter") {
+        ev.target.blur();
+        ev.preventDefault();
+    }
+}
+
+function saveChanges(ev) {
+    node = ev.target.parentNode;
+    if (node.id) {
+        saveFolder(getJson(node));
+    }
+}
+
+
 
 function showFolder(folder) {
     if (document.getElementById(folder.id)) return document.getElementById(folder.parentId);
@@ -29,11 +54,11 @@ function showFolder(folder) {
     bindNode(node, parentNode);
     return node;
 }
+
 function bindNode(node, to) {
-    var ulList = to.getElementsByTagName("ul");
-    if (ulList.length==0) {
+    if (to.getElementsByTagName("ul").length == 0) {
         var list = document.createElement("ul");
         to.appendChild(list);
     };
-    to.lastChild.appendChild(node);
+    to.getElementsByTagName("ul")[0].appendChild(node);
 }
