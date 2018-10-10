@@ -27,6 +27,7 @@ function newTextNode(text) {
     textNode.addEventListener("blur", saveChanges)
     return textNode;
 }
+
 function leaveIfEnter(ev) {
     if (ev.key=="Enter") {
         ev.target.blur();
@@ -41,12 +42,11 @@ function saveChanges(ev) {
     }
 }
 
-
-
 function showFolder(folder) {
     if (document.getElementById(folder.id)) return document.getElementById(folder.parentId);
 
     var node = document.createElement("li");
+    node.draggable = true;
     if (folder.id) node.id = folder.id;
     node.appendChild(newTextNode(folder.folderName));
 
