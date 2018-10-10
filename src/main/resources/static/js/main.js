@@ -69,6 +69,7 @@ function updateFolder(node){
             node.id = id;
         })
     }
+    bindNode(node, node.parentNode.parentNode);
 }
 
 function bindNode(node, to) {
@@ -76,7 +77,22 @@ function bindNode(node, to) {
         var list = document.createElement("ul");
         to.appendChild(list);
     };
-    to.getElementsByTagName("ul")[0].appendChild(node);
+    var parent = to.getElementsByTagName("ul")[0];
+    if (parent.childNodes.length==0) {
+        parent.appendChild(node)
+    } else {
+        var siblingList = parent.childNodes;
+        var nodeCaption = node.getElementsByTagName("div").innerHTML;
+        console.log(nodeCaption);
+        for (var i = 0; i < siblingList.length; i++) {
+            var sibling = siblingList[i].getElementsByTagName("div").innerHTML;
+            console.log(sibling);
+            if (sibling > nodeCaption) {
+                break;
+            }
+        }
+        parent.insertBefore(node,sibling);
+    }
 }
 
 function newBtn(imgName, onclick) {
