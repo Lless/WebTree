@@ -23,7 +23,9 @@ public class FolderController {
     }
 
     @PostMapping()
-    public void addFolder(@RequestBody Folder folder){
+    public Integer addFolder(@RequestBody Folder folder){
+        repo.save(folder);
+        return folder.getId();
     }
 
     @PutMapping()

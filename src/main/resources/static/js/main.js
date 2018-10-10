@@ -1,6 +1,8 @@
 function load() {
     var children = XhrGetNull();
     children.forEach(showFolder);
+    var root = document.getElementById(null);
+    root.insertBefore(newBtn("add",addNode), root.firstChild);
 }
 
 function getJson(node) {
@@ -35,6 +37,7 @@ function showFolder(folder) {
     node.draggable = true;
     if (folder.id) node.id = folder.id;
     node.appendChild(newTextNode(folder.folderName));
+    node.appendChild(newBtn("add",addNode));
     node.appendChild(newBtn("delete",deleteNode));
 
     var parentNode = document.getElementById(folder.parentId);
@@ -48,10 +51,21 @@ function deleteNode() {
     node.parentNode.removeChild(node);
 }
 
+function addNode(parent) {
+    var parent = this.parentNode;
+    var node = showFolder({parentId:parent.id, folderName:"new Folder"});
+    node.firstChild.focus();
+}
+
 function updateFolder(node){
     if (node.id) {
         XhrPut(getJson(node));
-    };
+    }
+    else {
+        XhrPost(getJson(node), function(id) {
+            node.id = id;
+        })
+    }
 }
 
 function bindNode(node, to) {
