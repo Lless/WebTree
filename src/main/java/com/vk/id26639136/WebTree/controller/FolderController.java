@@ -4,7 +4,10 @@ import com.vk.id26639136.WebTree.domain.Folder;
 import com.vk.id26639136.WebTree.repo.FolderRepo;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.List;
+import java.util.Stack;
 
 @RestController
 @RequestMapping("/folders")
@@ -37,6 +40,12 @@ public class FolderController {
 
     @DeleteMapping()
     public void deleteFolder(@RequestParam Folder folder) {
-        repo.delete(folder);
+        Deque<Folder> subFolders = new ArrayDeque<>();
+        subFolders.add(folder);
+        while (!subFolders.isEmpty()) {
+            Folder f = subFolders.removeLast();
+            repo.delete(f);
+            subFolders.addAll(repo.findChildren(f.getId()));
+        }
     }
 }
